@@ -109,13 +109,10 @@ Zookeeper là một nơi lưu trữ dữ liệu phân tán có cấu trúc key-v
 
 ### Producer/Consumer làm gì để biết được leader của một partition
 
-```
-Producer và Consumer kết nối trực tiếp đến Zookeeper để lấy thông tin. Từ version 0.8, 0.9, các clients lấy metadata trực tiếp từ các Brokers (các Brokers này có được qua việc lấy chúng từ Zookeeper)
-```
 
-<p style="text-align:center;"><img src="https://miro.medium.com/max/7575/1*tlgLYE45Q2wd5woB4uxR3g.png" alt="partiton"> 
-Metadata flow
-</p>
+Producer và Consumer kết nối trực tiếp đến Zookeeper để lấy thông tin. Từ version 0.8, 0.9, các clients lấy metadata trực tiếp từ các Brokers (các Brokers này có được qua việc lấy chúng từ Zookeeper)
+
+<p style="text-align:center;"><img src="https://miro.medium.com/max/7575/1*tlgLYE45Q2wd5woB4uxR3g.png" alt="partiton"></p>
 
 
 ## Refference
@@ -126,5 +123,5 @@ https://dzone.com/articles/kafka-producer-and-consumer-example
 
 https://kafka.apache.org/quickstart
 
-`Tài liệu Kafka của team Order system`
+`Tài liệu Kafka của team Order System`
 
