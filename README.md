@@ -22,14 +22,7 @@ research and demo application about kafka
 
 ## What is kafka? Concepts?
 
-Kafka là distributed steam platform. có ba khả năng chính như sau
-- Publish and subscribe to streams of records, giống như là một message queue hoặc enterprise messaging system.
-- chịu trách nhiệm lưu trữ các steam of record nhưng đảm bảo khả năng chịu lỗi
-- xử lí stream of records khi lỗi xảy ra
-
-Kafka thường được sử dụng trong hai mảng chính
-- xây dựng hệ thống real-time streaming data pipelines cung cấp độ tin cậy khi lấy tin nhắn từ nhau giữa các hệ thống hoặc ứng dụng
-- xây dụng streaming application để chuyển đổi hoặc tương tác với các dữ liệu stream.
+Kafka là distributed steam platform. được sử dụng cho các hệ thống real-time stream data gửi data từ server này đến server khác, có thể được dùng cho hệ thống lưu trữ có khả năng chịu lỗi.
 
 Có một số khái niệm trong kafka
 - Kafka được thực thi như là một cluster chạy trên một hay nhiều server 
@@ -39,7 +32,10 @@ Có một số khái niệm trong kafka
 - Topics: producer write một record lên một topic và consumer listen từ đó. Một topics có thể có nhiều partition nhưng chứa ít nhất là một
 - Partition: một topic partition mà một đơn vị thực thi song song trong kafka. nhiều coonsusmer không để consum từ một parttion đồng thời nhưng một consumer có thể consum nhiều partition đồng thời.
 - Offset: một index trong partition
-- producer: tạo ra các record and publishes chúng lên broker
+- producer: tạo ra các record and publishes chúng lên broker. producer có chức năng chọn ra các record được gửi lên partition nào với topic tương ứng. nếu không cấu hình việc chọn partition cụ thể nào thì nó sẽ chọn `round robin`. API của producer cho phép ta cấu hình dựa trene
+  - Partition id với các message cụ thể 
+  - có thể dựa vaò `key % number partition`
+  - round robin nếu không có bất cứ cấu hình gì.
 - Consumer: consumse record từ broker
 
 
@@ -49,7 +45,11 @@ Kafka có 4 core Api chính
 - Stream  API: cho phép ứng dụng xử lí như là một streaming processor, comsuming input stream từ một hay nhiều topics và producing output streaming đến một hay nhiều topics output khác, chuyển đổi hiệu quả các input streaming đến các output streaming.
 - Connector API: cho phép xây dụng và chạy lại các producer hoặc comsumer cái mà kết nói với kafka topic đến các application hoặc data system.
 
-Trong kafka thì việc giao tiếp giữa client và server thông qua TCP protocol với high-performance, protocol này được đánh dấu version và cho phép khả năng tương thích ngược với các version cũ hơn.
+Trong kafka thì việc giao tiếp giữa client và server thông qua TCP protocol với high-performance, protocol này được đánh dấu version và cho phép khả năng tương thích ngược với các version cũ hơn. Hơn nữa chúng còn cung cấp khả năng horizontal scale thông qua sharding bằng cách sharding chúng ra thành nhiều partition trên các server khác nhau.
+
+## Why kafka so fast
+
+Kafka dựa trên hệ điều hành để  move data nhanh nhất có thể, dựa vào việc ghi theo một trình tự nhất định do đó tránh được các trường hợp random access và tìm kiếm tốn kém trên các thanh đọc dưới đĩa cuả hệ điều hành.
 
 ## Kafka as queuing or publish-subscribe model?
 
@@ -59,7 +59,7 @@ Kafka is a distributed publish-subscribe messaging system and a robust queue tha
 
 Các producer gửi các messages(records) đến các node của kafka được gọi là broker và Chúng sẽ được xử lí bởi các consumer. Các messages như đã nói ở trên lưu trữ trong một topic và các consumers theo dõi topic đó để nhận các messages.
 
-Các topic có thể có nhiều partition để có thể tăng performance của hệ thống, vì ở mỗi partition trong topics, các consumer có thể xử lí đồng thời ở nhiều partition khác nhau. Kafka đảm bảo rằng các partition sẽ đến đúng thứ tự khi gửi từ producer đến topics. Có thể phần biệt messages cụ thể thông qua offet, có thể xem nó như là một mảng, partition là một array, còn offset là index trên array đó.
+Các topic có thể có nhiều partition để có thể tăng performance của hệ thống và dễ dàng scalability, vì ở mỗi partition trong topics, các consumer có thể xử lí đồng thời ở nhiều partition khác nhau. Kafka đảm bảo rằng các partition sẽ đến đúng thứ tự khi gửi từ producer đến topics. Có thể phần biệt messages cụ thể thông qua offet, có thể xem nó như là một mảng, partition là một array, còn offset là index trên array đó, các consumer có thể lựa chọn vị trí của offset trên partition.
 
 <img src= "https://kafka.apache.org/23/images/log_anatomy.png">
 
