@@ -49,7 +49,7 @@ Trong kafka thì việc giao tiếp giữa client và server thông qua TCP prot
 
 ## Why kafka so fast
 
-Kafka dựa trên hệ điều hành để  move data nhanh nhất có thể, dựa vào việc ghi theo một trình tự nhất định do đó tránh được các trường hợp random access và tìm kiếm tốn kém trên các thanh đọc dưới đĩa cuả hệ điều hành.
+Kafka dựa trên hệ điều hành để  move data nhanh nhất có thể, dựa vào việc ghi theo một trình tự nhất định do đó tránh được các trường hợp random access và tìm kiếm tốn kém trên các thanh đọc dưới đĩa cuả hệ điều hành. kafka cũng cung cấp cơ chế cho việc horizontal scale thông qua sharding. vì ta có thể  chia topic trên nhiều broker và trong topic có thể chia ra nhiều partition trên nhiều máy chủ khác nhau để tăng hiệu suất của hệ thống.
 
 ## Kafka as queuing or publish-subscribe model?
 
@@ -113,6 +113,53 @@ Zookeeper là một nơi lưu trữ dữ liệu phân tán có cấu trúc key-v
 Producer và Consumer kết nối trực tiếp đến Zookeeper để lấy thông tin. Từ version 0.8, 0.9, các clients lấy metadata trực tiếp từ các Brokers (các Brokers này có được qua việc lấy chúng từ Zookeeper)
 
 <p style="text-align:center;"><img src="https://miro.medium.com/max/7575/1*tlgLYE45Q2wd5woB4uxR3g.png" alt="partiton"></p>
+
+## Project demo
+
+## Requirement
+
+![x](images/work.jpg)
+
+Receptionist
+ - Đảm nhiệm chức năng tiếp nhận yêu cầu play game.
+ - Cung cấp API play 1 game, trong đó cần có các thông tin sau:
+  + Loại game.
+  + Dữ liệu chơi của loại game đó.
+  + Username của người chơi.
+ - Validate thông tin input e.g. loại game có hỗ trợ hay không và trả kết quả về cho client.
+
+  Ví dụ đối với trò chơi "Oẳn tù tì" thì input của API bao gồm:
+  + Loại game: 123
+  + Dữ liệu chơi: Kéo/Búa/Bao
+  + Username: huyvha
+
+---------------------------------------------------------------------------------------------
+
+User Management
+ - Quản lí thông tin và lịch sử chơi game của user (user x chơi game y bao nhiêu lần):
+   + username
+   + loại game - lượt chơi
+   + kết quả
+ - Đối với user mới chưa có trong hệ thống thì random username bằng tên của 1 trong các thành viên của team.
+
+---------------------------------------------------------------------------------------------
+
+123 Gameplay
+   - Nhận thông tin game và quyết định kết quả của game
+ - Ví dụ:
+  + Nhận thông tin user chơi "Kéo", random lượt ra của máy và quyết định kết quả game: nếu random ra "Búa" thì kết quả thắng, nếu random ra "Bao" thì kết quả thua, còn lại là hoà. 
+
+---------------------------------------------------------------------------------------------
+
+Announcer
+ - Đảm nhiệm việc thông báo kết quả khi game kết thúc
+ - Implementation đơn giản chỉ print ra màn hình console kết quả game, bao gồm:
+   + thông tin người chơi 
+   + thông tin game e.g. tên game, lượt chơi của máy
+   + kết quả game
+
+--------------------------------------------------------------------------------------------
+
 
 
 ## Refference
