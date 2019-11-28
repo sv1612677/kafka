@@ -16,7 +16,7 @@ public enum  GameType {
 
     static {
         for (GameType gameType : GameType.values()) {
-            listGameType.put(gameType.topicOfGame, gameType);
+            listGameType.put(gameType.getTopic(), gameType);
         }
     }
 

@@ -38,7 +38,6 @@ Có một số khái niệm trong kafka
   - round robin nếu không có bất cứ cấu hình gì.
 - Consumer: consumse record từ broker
 
-
 Kafka có 4 core Api chính
 - Produver API: cho phép ứng dụng push a stream of record đến một hay nhiều kafka topic.
 - Consumer API: cho phép ứng dụng subscribe đến một hay hiều topics và xử lí stream of record

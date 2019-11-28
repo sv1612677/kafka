@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PlayGameController {
+public class HandleRequestController {
 
     @Autowired
     HandleRequestService handleRequestService;
 
-    @PostMapping(path = "/games/1")
+    @PostMapping(path = "/games/game123")
     public ResponseEntity<Object> requestPlayGame(@RequestBody RequestGame123 requestGame123){
         return handleRequestService.ValidateAndSendRequestGame123(requestGame123);
     }
