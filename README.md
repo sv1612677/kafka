@@ -138,6 +138,7 @@ Receptionist
 User Management
  - Quản lí thông tin và lịch sử chơi game của user (user x chơi game y bao nhiêu lần):
    + username
+   + name
    + loại game - lượt chơi
    + kết quả
  - Đối với user mới chưa có trong hệ thống thì random username bằng tên của 1 trong các thành viên của team.
@@ -159,8 +160,6 @@ Announcer
    + kết quả game
 
 --------------------------------------------------------------------------------------------
-
-
 
 ## Refference
 
