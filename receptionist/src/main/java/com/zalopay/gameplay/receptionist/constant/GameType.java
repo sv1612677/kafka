@@ -4,34 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum  GameType {
-    GAME123(1);
+    GAME123("123GamePlay");
 
-    private final Integer value;
+    private final String topicOfGame;
 
     private static Map listGameType = new HashMap<>();
 
-    GameType(final Integer value){
-        this.value=value;
+    GameType(final String topicOfGame){
+        this.topicOfGame = topicOfGame;
     }
 
     static {
         for (GameType gameType : GameType.values()) {
-            listGameType.put(gameType.value, gameType);
+            listGameType.put(gameType.topicOfGame, gameType);
         }
     }
 
-    public Integer getValue() {
-        return value;
+    public String getTopic() {
+        return topicOfGame;
     }
 
-    public static GameType valueof(Integer value){
+    public static GameType valueof(String value){
         GameType gameType = (GameType) listGameType.get(value);
         if (gameType == null){
             throw new IllegalArgumentException("Not Enum constant was found for value : " + value);
         }
         return gameType;
     }
-    public static boolean isExistGameType(Integer gameType){
-        return listGameType.containsKey(gameType);
+    public static boolean isExistGameType(GameType gameType){
+        return listGameType.containsValue(gameType);
     }
 }

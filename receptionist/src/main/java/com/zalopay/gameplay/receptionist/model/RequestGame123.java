@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @ToString
 public class RequestGame123 {
-    String username;
-    Integer gameType;
+    String userName;
+    String gameType;
     Integer userStep;
 }

@@ -30,8 +30,6 @@ public class ProducerServiceImpl  implements ProducerService{
                 System.out.println("Unable to send message=["
                         + message + "] due to : " + throwable.getMessage());
             }
-
-
         });
     }
 }

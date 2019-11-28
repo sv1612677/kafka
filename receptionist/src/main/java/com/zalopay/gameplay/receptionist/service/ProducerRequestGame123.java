@@ -15,10 +15,10 @@ public class ProducerRequestGame123 {
     @Autowired
     KafkaTemplate<String, RequestGame123> kafkaTemplate;
 
-    public void sendRequestGame123(RequestGame123 requestGame123, TopicType topic){
+    public void sendRequestGame123(RequestGame123 requestGame123, String topic){
         Message<RequestGame123> message = MessageBuilder
                 .withPayload(requestGame123)
-                .setHeader(KafkaHeaders.TOPIC,topic.getValue())
+                .setHeader(KafkaHeaders.TOPIC,topic)
                 .build();
         kafkaTemplate.send(message);
     }
