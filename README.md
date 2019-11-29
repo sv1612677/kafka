@@ -54,6 +54,8 @@ Kafka dựa trên hệ điều hành để  move data nhanh nhất có thể, d�
 
 Kafka is a distributed publish-subscribe messaging system and a robust queue that can handle a high volume of data and enables you to pass messages from one end-point to another.
 
+Message Queue được thiết kế cho các tình huống như tasklisthoặc workqueue. Message Queue nhận được tin nhắn đến và đảm bảo rằng mỗi tin nhắn sẽ được gửi cho một topic hoặc channel và xử lý bởi chính xác một consumer.
+
 ## Mechanism
 
 Các producer gửi các messages(records) đến các node của kafka được gọi là broker và Chúng sẽ được xử lí bởi các consumer. Các messages như đã nói ở trên lưu trữ trong một topic và các consumers theo dõi topic đó để nhận các messages.
