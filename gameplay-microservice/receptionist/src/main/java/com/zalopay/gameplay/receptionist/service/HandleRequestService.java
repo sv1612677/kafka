@@ -16,29 +16,25 @@ public class HandleRequestService {
     ProducerRequestGame123 producerRequestGame123;
 
     @Autowired
+    ValidateRequestGame123Service validateRequestGame123Service;
+
+    @Autowired
     ResponsService responsService;
 
-    @Transactional
     public ResponseEntity<Object> ValidateAndSendRequestGame123(RequestGame123 requestGame123){
         //check request play game wrong type or wrong structure
         if(requestGame123 == null){
             return responsService.processRequestGame123Fail();
         }
-        // check hame type have exist
-        GameType gameType = GameType.valueof(requestGame123.getGameType());
-        boolean isGameExist = GameType.isExistGameType(gameType);
-        if(!isGameExist){
-            return responsService.processRequestGame123Fail();
-        }
-        //check request have true game type
-        boolean isTypeUserPlayExist = UserStep.isExistTypeUserPlay(requestGame123.getUserStep());
+
+        boolean isTypeUserPlayExist = validateRequestGame123Service.
+                isExistTypeUserPlay(requestGame123.getUserStep());
         if(!isTypeUserPlayExist){
             return responsService.processRequestGame123Fail();
         }
         // send request to service 123 game play
-        String topic = gameType.getTopic();
         try{
-            producerRequestGame123.sendRequestGame123(requestGame123,topic);
+            producerRequestGame123.sendRequestGame123(requestGame123,GameType.GAME123.getTopic());
         }catch (JsonProcessingException json){
             return responsService.processRequestGame123Fail();
         }
