@@ -16,11 +16,12 @@ public class ProducerRequestGame123 {
     @Autowired
     KafkaTemplate<String, RequestGame123> kafkaTemplate;
 
-    private final JsonMapper jsonMapper = new JsonMapper();
+    @Autowired
+    JsonMapperService jsonMapperService;
 
     public void sendRequestGame123(RequestGame123 requestGame123, String topic) throws JsonProcessingException {
         Message<String> message = MessageBuilder
-                .withPayload(jsonMapper.writeValueAsString(requestGame123))
+                .withPayload(jsonMapperService.writeObjectAsString(requestGame123))
                 .setHeader(KafkaHeaders.TOPIC,topic)
                 .build();
         kafkaTemplate.send(message);
