@@ -1,29 +1,30 @@
 package com.zalopay.gameplay.gameplay.service.game;
 
 
+import com.zalopay.gameplay.gameplay.constant.UserStep;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+import static com.zalopay.gameplay.gameplay.constant.UserStep.*;
+
 @Service
 public class ProcessGameService {
-    public static final int MAX = 2;
-    public static final int MIN = 0;
-    public static final int ROCK = 0;
-    public static final int PAPER = 1;
-    public static final int SCISSORS = 2;
     public static final int WIN = 0;
     public static final int LOSE = 1;
     public static final int DRAW = 2;
     private final Random botStep = new Random();
 
 
-    public int getBotStep(){
-        return botStep.nextInt(3);
+    public UserStep getBotStep(){
+        Integer newBotStep = botStep.nextInt(3);
+        UserStep userStep = UserStep.valueOf(newBotStep);
+        System.out.println(userStep);
+        return userStep;
     }
 
 
-    public int getResultGame(int userStep, int botStep){
+    public int getResultGame(UserStep userStep, UserStep botStep){
         switch (userStep){
             case ROCK:
                 switch (botStep){
@@ -31,7 +32,6 @@ public class ProcessGameService {
                     case ROCK: return DRAW;
                     case PAPER: return LOSE;
                 }
-
             case PAPER:
                 switch (botStep){
                     case ROCK: return WIN;
@@ -46,7 +46,6 @@ public class ProcessGameService {
                     case ROCK: return LOSE;
                 }
             default: return LOSE;
-
         }
 
 

@@ -25,10 +25,11 @@ public class Consumer {
         GameResult gameResult = objectMapper.readValue(resultMessage, GameResult.class);
         System.out.println("Game info: ");
         System.out.println(gameResult.toString());
-        userGameService.saveUserGamePlay(gameResult.getUserName(), gameResult.getGameType(), gameResult.getResult());
+        userGameService.saveUserGamePlay(gameResult.getUserName(), gameResult.getGameType());
         User user = userService.findUserByUsername(gameResult.getUserName());
         GameAnnounce gameAnnounce = new GameAnnounce(gameResult.getUserName(), user.getName(),
-                                                     gameResult.getUserStep(), gameResult.getBotStep(), gameResult.getResult());
+                                                     gameResult.getUserStep(), gameResult.getBotStep(),
+                                                     gameResult.getResult());
         producer.sendResultToAnnounce(gameAnnounce);
     }
 }
